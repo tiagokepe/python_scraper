@@ -1,4 +1,5 @@
-from models import UserProfile
+""" Module to test the scrapers """
+
 from selenium_scraper import SeleniumScraper
 
 selenium_scraper = SeleniumScraper()
