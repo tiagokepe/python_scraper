@@ -1,0 +1,9 @@
+selenium=4.8.2
+webdriver-manager=3.8.5
+pydantic=1.10.6
+pre-commit=2.21.0
+mypy=1.1.1
+pylint=2.17.1
+black=23.1.0
+flake=5.0.4
+isort=5.11.5
