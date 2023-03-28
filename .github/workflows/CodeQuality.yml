@@ -18,7 +18,7 @@ defaults:
     shell: bash
 
 jobs:
-    format-check:
+  format-check:
     name: Format Check
     runs-on: ubuntu-latest
 
