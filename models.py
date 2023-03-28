@@ -1,11 +1,13 @@
-from pydantic import BaseModel
-from typing import List
+""" This module contais all models required for this project """
 from datetime import date
-from typing import Optional
+from typing import List, Optional
+
+from pydantic import BaseModel
 
 
-# Model class for loading the credentials in the credentials.json file
 class Credential(BaseModel):
+    """Model class user credential"""
+
     username: str
     password: str
     secret: str
@@ -13,23 +15,28 @@ class Credential(BaseModel):
 
 
 class Credentials(BaseModel):
+    """Model class to hold all provide credentials"""
+
     credentials: List[Credential]
 
 
-# Model classes to hold all the relevant information in profile setting ###########
-
-
 class Language(BaseModel):
+    """Model class for user language"""
+
     language: str
     title: str
     proficiencyLevel: str
 
 
 class GeneralSkill(BaseModel):
+    """Model class for general skill"""
+
     prefLabel: str
 
 
 class Education(BaseModel):
+    """Model class for education info"""
+
     institutionName: str
     areaOfStudy: str
     degree: str
@@ -38,6 +45,8 @@ class Education(BaseModel):
 
 
 class EmploymentHistory(BaseModel):
+    """Model class for employment history"""
+
     companyName: str
     jobTitle: str
     startDate: date
@@ -53,6 +62,8 @@ class EmploymentHistory(BaseModel):
 
 
 class Address(BaseModel):
+    """Model class for address"""
+
     state: str
     city: str
     zip: Optional[str] = None
@@ -62,15 +73,21 @@ class Address(BaseModel):
 
 
 class FreelancerCategory(BaseModel):
+    """Model class for frelancer category"""
+
     name: str
 
 
 class Freelancer(BaseModel):
+    """Model class for frelancer users"""
+
     lastName: str
     firstName: str
 
 
 class UserState(BaseModel):
+    """Model class for user state"""
+
     languages: Optional[List[Language]] = None
     englishLevel: str
     generalSkills: Optional[List[GeneralSkill]] = None
@@ -87,5 +104,7 @@ class UserState(BaseModel):
 
 
 class UserProfile(BaseModel):
+    """Main model class to hold all the relevant information in profile setting"""
+
     state: UserState
     freelancer: Optional[Freelancer] = None

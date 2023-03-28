@@ -1,25 +1,37 @@
+""" This module is a concrete scraper implementation with Selenium """
 import json
 
+from pydantic import parse_obj_as
 from selenium import webdriver
-from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support import expected_conditions as EC
-from models import UserProfile
+
 from abstract_scraper import AbstractScraper
-from pydantic import parse_obj_as
+from models import UserProfile
 
 
 class SeleniumScraper(AbstractScraper):
+    """
+    SeleniumScraper implements the AbstractScraper with the methods:
+        __init__
+        __del__
+        LogIn
+        LoadUserProfile
+    """
+
     _scraper: WebDriver
 
     def __init__(self):
         super().__init__()
         options = Options()
-        user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+        user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
+                    (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
         options.add_argument(f"user-agent={user_agent}")
         options.add_argument("--headless")
         options.add_argument("--disable-dev-shm-usage")
@@ -31,7 +43,7 @@ class SeleniumScraper(AbstractScraper):
         self._scraper.close()
         self._logger.info("Done Selenium Scraper")
 
-    def LogIn(self) -> bool:
+    def log_in(self) -> bool:
         login_attempts = 0
         for credential in self._credentials:
             login_attempts += 1
@@ -48,39 +60,39 @@ class SeleniumScraper(AbstractScraper):
                 passwd_in_box.send_keys(credential.password)
                 passwd_in_box.submit()
                 break
-            except Exception as exception:
+            except (NoSuchElementException, TimeoutException) as ex:
                 self._scraper.get_screenshot_as_file("log/screenshots/login.png")
                 msg = (
                     "LogIn: useranme '"
                     + credential.username
                     + "' failed with the following exception:\n"
                 )
-                msg += str(exception)
+                msg += str(ex)
                 self._logger.error(msg)
         if login_attempts == len(self._credentials):
             self._logger.fatal(
-                "LogIn: We couldn't log into the system. Please try again or provide a new credential."
+                "LogIn: We couldn't log into the system. Please try again or \
+                    provide a new credential."
             )
             return False
         return True
 
-    def __WaitRedirectToProfilePage(self):
+    def _wait_redirect(self):
         old_url = self._scraper.current_url
         wait_profile = WebDriverWait(self._scraper, 10)
         wait_profile.until(lambda driver: driver.current_url != old_url)
 
-    def LoadUserProfile(self) -> bool:
+    def load_user_profile(self) -> bool:
         try:
-            self.__WaitRedirectToProfilePage()
+            self._wait_redirect()
 
             self._scraper.get(
                 "https://www.upwork.com/ab/create-profile/api/min/v1/welcome"
             )
             body_text = self._scraper.find_element(By.TAG_NAME, "body").text
-            # profile_str = json.loads(body_text)
             self._user_profile = parse_obj_as(UserProfile, json.loads(body_text))
-        except Exception as ex:
-            self._logger.fatal("LoadUserProfile: " + str(ex))
+        except (NoSuchElementException, TimeoutException) as ex:
+            self._logger.fatal("LoadUserProfile: %s", str(ex))
             self._scraper.get_screenshot_as_file(
                 "log/screenshots/load_user_profile.png"
             )
