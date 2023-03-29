@@ -4,6 +4,7 @@ import json
 
 import cloudscraper
 from cloudscraper import CloudScraper
+from cloudscraper.exceptions import CloudflareChallengeError
 
 from abstract_scraper import AbstractScraper
 from configure_scraper import ConfigureScraper
@@ -40,33 +41,43 @@ class CloudBasedScraper(AbstractScraper):
             "Failed for user " + self._credential.username,
             exception,
         )
-        # TODO not raising exception only for test purpose
-        # raise ValueError("Login")
+        raise ValueError("Login")
 
     def log_in(self):
-        response = self._scraper.get(self._credential.url)
-        if response.status_code != 200:
-            self._log_response_status(response.status_code)
+        try:
+            response = self._scraper.get(self._credential.url)
+            if response.status_code != 200:
+                self._log_response_status(response.status_code)
 
-        login_user = {
-            "login": {"mode": "username", "username": self._credential.username}
-        }
-        response = self._scraper.post(self._credential.url, data=json.dumps(login_user))
-        if response.status_code != 200:
-            self._log_response_status(response.status_code)
-
-        login_passwd = {
-            "login": {
-                "mode": "password",
-                "password": self._credential.password,
-                "username": self._credential.username,
+            login_user = {
+                "login": {"mode": "username", "username": self._credential.username}
             }
-        }
-        response = self._scraper.post(
-            self._credential.url, data=json.dumps(login_passwd)
-        )
-        if response.status_code != 200:
-            self._log_response_status(response.status_code)
+            response = self._scraper.post(
+                self._credential.url, data=json.dumps(login_user)
+            )
+            if response.status_code != 200:
+                self._log_response_status(response.status_code)
+
+            login_passwd = {
+                "login": {
+                    "mode": "password",
+                    "password": self._credential.password,
+                    "username": self._credential.username,
+                }
+            }
+            response = self._scraper.post(
+                self._credential.url, data=json.dumps(login_passwd)
+            )
+            if response.status_code != 200:
+                self._log_response_status(response.status_code)
+        except (CloudflareChallengeError, ValueError) as exception:
+            self._logger.log_error(
+                self.state,
+                "LogIn",
+                "Failed for user " + self._credential.username,
+                exception,
+            )
+            raise exception
 
         self.state = StateEnum.LOGINTO
 
