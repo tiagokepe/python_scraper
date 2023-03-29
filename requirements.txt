@@ -8,3 +8,4 @@ black==23.1.0
 flake8==5.0.4
 isort==5.11.5
 pytest==6.2.5
+cloudscraper==1.2.69
