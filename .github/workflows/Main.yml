@@ -18,7 +18,7 @@ env:
 
 jobs:
   test-selenium-scraper:
-    name: Test Selenium Scraper
+    name: Test Scrapers
     runs-on: ubuntu-latest
 
     steps:

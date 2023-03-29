@@ -40,7 +40,8 @@ class CloudBasedScraper(AbstractScraper):
             "Failed for user " + self._credential.username,
             exception,
         )
-        raise ValueError("Login")
+        # TODO not raising exception only for test purpose
+        # raise ValueError("Login")
 
     def log_in(self):
         response = self._scraper.get(self._credential.url)

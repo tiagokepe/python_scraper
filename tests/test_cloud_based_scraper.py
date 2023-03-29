@@ -43,15 +43,15 @@ def test_login(scraper):
     assert scraper.state == StateEnum.LOGINTO
 
 
-# @pytest.mark.smoke
-# def test_load_profile(scraper):
-#     assert scraper is not None
-#     scraper.load_user_profile()
-#     assert scraper.state == StateEnum.LOADED_PROFILE
+@pytest.mark.smoke
+def test_load_profile(scraper):
+    assert scraper is not None
+    scraper.load_user_profile()
+    assert scraper.state == StateEnum.LOADED_PROFILE
 
 
-# @pytest.mark.smoke
-# def test_log_out(scraper):
-#     assert scraper is not None
-#     scraper.log_out()
-#     assert scraper.state == StateEnum.LOGOUT
+@pytest.mark.smoke
+def test_log_out(scraper):
+    assert scraper is not None
+    scraper.log_out()
+    assert scraper.state == StateEnum.LOGOUT
