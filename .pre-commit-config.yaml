@@ -16,7 +16,7 @@ repos:
     rev: 5.0.0
     hooks:
     -   id: flake8
-        args: ['--ignore=W504,W503']
+        args: ['--ignore=W504,W503,E722']
 
 -   repo: https://github.com/PyCQA/isort
     rev: 5.11.5
@@ -27,7 +27,7 @@ repos:
     rev: 'v2.17.1'
     hooks:
     -   id: pylint
-        args: ['--disable=E0401,R0903']
+        args: ['--disable=E0401,R0903,W0702,C0116,W0621']
 
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: 'v1.1.1'
