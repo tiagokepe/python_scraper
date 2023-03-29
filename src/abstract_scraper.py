@@ -10,7 +10,10 @@ from state_enum import StateEnum
 class AbstractScraper(ABC):
     """
     AbstractScraper provides a common interface for scrapers such as:
+    - __init__
+    - __del__
     - log_in
+    - log_out
     - load_user_profile
     It also provides common methods tha derived scrapers can inherit.
     """
