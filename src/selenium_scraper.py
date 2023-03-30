@@ -29,6 +29,7 @@ class SeleniumScraper(AbstractScraper):
     """
 
     _scraper: WebDriver
+    _current_url_page: str
 
     def __init__(self, config: ConfigureScraper):
         super().__init__(config)
@@ -56,6 +57,7 @@ class SeleniumScraper(AbstractScraper):
 
         try:
             self._scraper.get(self._credential.url)
+            self._current_url_page = self._scraper.current_url
             username_in_box = WebDriverWait(self._scraper, 10).until(
                 EC.visibility_of_element_located((By.ID, "login_username"))
             )
@@ -111,9 +113,8 @@ class SeleniumScraper(AbstractScraper):
             self.state = StateEnum.LOGOUT
 
     def _wait_redirect(self):
-        old_url = self._scraper.current_url
         wait_profile = WebDriverWait(self._scraper, 10)
-        wait_profile.until(lambda driver: driver.current_url != old_url)
+        wait_profile.until(lambda driver: driver.current_url != self._current_url_page)
 
     def load_user_profile(self):
         self._logger.log_info("LoadUserProfile", self._credential.username)

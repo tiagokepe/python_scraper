@@ -51,11 +51,11 @@ class EmploymentHistory(BaseModel):
     jobTitle: str
     startDate: date
     endDate: Optional[date] = None
-    description: str
-    city: str
-    country: str
-    startYear: int
-    startMonth: int
+    description: Optional[str]
+    city: Optional[str]
+    country: Optional[str]
+    startYear: Optional[int]
+    startMonth: Optional[int]
     endYear: Optional[int] = None
     endMonth: Optional[int] = None
     isCurrentPosition: bool
@@ -68,7 +68,7 @@ class Address(BaseModel):
     city: str
     zip: Optional[str] = None
     country: str
-    address: str
+    address: Optional[str]
     street: str
 
 
@@ -89,17 +89,17 @@ class UserState(BaseModel):
     """Model class for user state"""
 
     languages: Optional[List[Language]] = None
-    englishLevel: str
+    englishLevel: Optional[str]
     generalSkills: Optional[List[GeneralSkill]] = None
     educations: Optional[List[Education]] = None
     employmentHistory: Optional[List[EmploymentHistory]] = None
     profileTitle: str
-    profileOverview: str
-    countryCode: str
+    profileOverview: Optional[str]
+    countryCode: Optional[str]
     rate: float
-    phoneNumber: str
-    phoneCountryCode: str
-    address: Address
+    phoneNumber: Optional[str]
+    phoneCountryCode: Optional[str]
+    address: Optional[Address]
     freelancerCategories: Optional[List[FreelancerCategory]] = None
 
 
