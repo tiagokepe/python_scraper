@@ -58,12 +58,12 @@ class SeleniumScraper(AbstractScraper):
         try:
             self._scraper.get(self._credential.url)
             self._current_url_page = self._scraper.current_url
-            username_in_box = WebDriverWait(self._scraper, 10).until(
+            username_in_box = WebDriverWait(self._scraper, 60).until(
                 EC.visibility_of_element_located((By.ID, "login_username"))
             )
             username_in_box.send_keys(self._credential.username)
             username_in_box.submit()
-            passwd_in_box = WebDriverWait(self._scraper, 5).until(
+            passwd_in_box = WebDriverWait(self._scraper, 60).until(
                 EC.visibility_of_element_located((By.ID, "login_password"))
             )
             passwd_in_box.send_keys(self._credential.password)
