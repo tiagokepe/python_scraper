@@ -37,8 +37,10 @@ jobs:
         run: pytest tests --ignore tests/test_cloud_based_scraper.py
 
       - name: Save Log
-        if: ${{ failure() }}
+        if: success() || failure()
         run: tar -czvf log log.tar.gz
+
+      - name: Archive Log
         uses: actions/upload-artifact@v3
         with:
           name: log-report
