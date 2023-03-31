@@ -36,6 +36,10 @@ jobs:
       - name: Run test
         run: pytest tests --ignore tests/test_cloud_based_scraper.py
 
-      - name: Print log file on failure
+      - name: Save Log
         if: ${{ failure() }}
-        run: ls -laR log && cat log/scraper.log
+        run: tar -czvf log log.tar.gz
+        uses: actions/upload-artifact@v3
+        with:
+          name: log-report
+          path: log.tar.gz
