@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sudo pip3 install -r requirements.txt && mkdir -p log/screenshots
+sudo pip3 install -r requirements.txt
+mkdir -p log/screenshots
+mkdir -p user_profiles
 
 export DEBIAN_FRONTEND=noninteractive
 export TZ=Europe/Madrid
