@@ -13,6 +13,18 @@ All required libraries with the versions used in the development enviroment are 
 
 Therefore, it only requires to run: `sudo pip3 install -r requirements.txt`
 
+# Docker Container
+We provide a docker image implementaion with the facilities of Docker Compose. 
+
+Run the following commands inside the project's directory:
+
+* `$: docker-compose build upwork_scraper`
+* `$: docker-compose up upwork_scraper`
+
+To access the container:
+* `$: docker run -it upwork_scraper`
+
+
 # Main scraper
 The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module read a credential json file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)), for each provided credential it retrives and saves the user profile information in the **user_profiles** directory.
 
@@ -88,5 +100,5 @@ We provide many checks using the **pre-commit** library with the hooks:
 * mypy
 
 To run the checks:
-* `>: pre-commit install`
-* `>: pre-commit run -a`
+* `$: pre-commit install`
+* `$: pre-commit run -a`
