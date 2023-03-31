@@ -34,4 +34,4 @@ jobs:
         run: sudo apt-get install docker docker-compose
 
       - name: Build Docker Image
-        run: docker-compose up upwork_scraper
+        run: sudo service docker start && docker-compose up upwork_scraper
