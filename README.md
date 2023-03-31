@@ -50,7 +50,8 @@ For now, there are two defined actions for CI/CD workflows:
 * `CodeQuality.yml`: runs many format checks
 * `Main.yml`: installs the requirements and runs the unit test scripts
 
-The test script is not workindg on Github because of Cloudfare detection,  it is sending the captcha V2 challenge:
+The test script is not workindg on Github because of Cloudflare detection,  it is sending the captcha V2 challenge.
+I believe that Cloudflare has the Github notebooks IPs in a blacklist, in someway.
 
 ![image](https://user-images.githubusercontent.com/403295/229088069-85924e5d-8b2d-42b9-bdb2-92aa1678c8c9.png)
 
