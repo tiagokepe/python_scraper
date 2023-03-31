@@ -34,10 +34,10 @@ class SeleniumScraper(AbstractScraper):
     def __init__(self, config: ConfigureScraper):
         super().__init__(config)
         options = Options()
-        # user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
-        #             (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-        # options.add_argument(f"user-agent={user_agent}")
-        options.add_argument("--headless")
+        user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
+                    (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+        options.add_argument(f"user-agent={user_agent}")
+        options.add_argument("--headless=new")
         options.add_argument("--disable-dev-shm-usage")
         service = Service(ChromeDriverManager().install())
         self._scraper = UC.Chrome(service=service, options=options)
@@ -58,12 +58,12 @@ class SeleniumScraper(AbstractScraper):
         try:
             self._scraper.get(self._credential.url)
             self._current_url_page = self._scraper.current_url
-            username_in_box = WebDriverWait(self._scraper, 60).until(
+            username_in_box = WebDriverWait(self._scraper, 10).until(
                 EC.visibility_of_element_located((By.ID, "login_username"))
             )
             username_in_box.send_keys(self._credential.username)
             username_in_box.submit()
-            passwd_in_box = WebDriverWait(self._scraper, 60).until(
+            passwd_in_box = WebDriverWait(self._scraper, 9).until(
                 EC.visibility_of_element_located((By.ID, "login_password"))
             )
             passwd_in_box.send_keys(self._credential.password)
