@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  upwork_scraper:
+    # Usage:
+    #   docker-compose pull scraper or docker-compose build scraper
+    #   docker-compose run --rm scraper
+
+    image: "upwork_scraper"
+    build:
+      context: .
+      dockerfile: scripts/ubuntu.dockerfile
+    volumes:
+      - .:/scraper_code:delegated
