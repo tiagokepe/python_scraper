@@ -14,7 +14,7 @@ All required libraries with the versions used in the development enviroment are 
 Therefore, it only requires to run: `sudo pip3 install -r requirements.txt`
 
 # Docker Container
-We provide a docker image implementation with the Docker Compose facilities. 
+We provide a docker image implementation with the Docker Compose facilities.
 
 Run the following command inside the project's directory:
 
@@ -27,7 +27,7 @@ To access the container:
 # Main scraper
 The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module read a credential json file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)), for each provided credential it retrives and saves the user profile information in the **user_profiles** directory.
 
-To run the **main_scraper** only execute: 
+To run the **main_scraper** only execute:
 
 * `$: python3 src/main_scraper.py`
 
