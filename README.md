@@ -14,11 +14,10 @@ All required libraries with the versions used in the development enviroment are 
 Therefore, it only requires to run: `sudo pip3 install -r requirements.txt`
 
 # Docker Container
-We provide a docker image implementaion with the facilities of Docker Compose. 
+We provide a docker image implementation with the Docker Compose facilities. 
 
-Run the following commands inside the project's directory:
+Run the following command inside the project's directory:
 
-* `$: docker-compose build upwork_scraper`
 * `$: docker-compose up upwork_scraper`
 
 To access the container:
@@ -28,7 +27,9 @@ To access the container:
 # Main scraper
 The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module read a credential json file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)), for each provided credential it retrives and saves the user profile information in the **user_profiles** directory.
 
-To run the **main_scraper** only execute: `python3 src/main_scraper.py`
+To run the **main_scraper** only execute: 
+
+* `$: python3 src/main_scraper.py`
 
 The first version of this module uses the **SeleniumScraper**, but with our Scraper Interface, described bellow, it's possible to provide many scrapers as needed.
 
@@ -48,6 +49,11 @@ The new scrapers must be usefull in case of SeleniumScraper's failure, we can us
 For now, there are two defined actions for CI/CD workflows:
 * `CodeQuality.yml`: runs many format checks
 * `Main.yml`: installs the requirements and runs the unit test scripts
+
+The test script is not workindg on Github because of Cloudflare detection,  it is sending the captcha V2 challenge.
+I believe that Cloudflare has the Github notebooks IPs in a blacklist, in someway.
+
+![image](https://user-images.githubusercontent.com/403295/229088069-85924e5d-8b2d-42b9-bdb2-92aa1678c8c9.png)
 
 
 # Features
