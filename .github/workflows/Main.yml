@@ -38,7 +38,7 @@ jobs:
 
       - name: Save Log
         if: success() || failure()
-        run: tar -czvf log log.tar.gz
+        run: tar -czvf log.tar.gz log
 
       - name: Archive Log
         uses: actions/upload-artifact@v3
