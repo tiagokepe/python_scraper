@@ -1,8 +1,8 @@
 """ This module is a concrete scraper implementation with Selenium """
 import json
 
+import undetected_chromedriver as UC
 from pydantic import parse_obj_as
-from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -40,7 +40,7 @@ class SeleniumScraper(AbstractScraper):
         options.add_argument("--headless")
         options.add_argument("--disable-dev-shm-usage")
         service = Service(ChromeDriverManager().install())
-        self._scraper = webdriver.Chrome(service=service, options=options)
+        self._scraper = UC.Chrome(service=service, options=options)
         self._logger.log_info("Init", "Selenium Scraper")
         self.state = StateEnum.INITIALIZED
 
