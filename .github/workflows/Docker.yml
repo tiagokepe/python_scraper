@@ -17,21 +17,10 @@ env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  build-docker-container:
-    name: Build Docker Container
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.7'
-
-      - name: Install Docker
-        run: sudo apt-get install docker docker-compose
-
       - name: Build Docker Image
-        run: docker-compose build upwork_scraper
+        run: docker build . --file scripts/ubuntu.dockerfile --tag upwork_scraper:$(date +%s)
