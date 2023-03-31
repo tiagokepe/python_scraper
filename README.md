@@ -16,10 +16,9 @@ Therefore, it only requires to run: `sudo pip3 install -r requirements.txt`
 # Docker Container
 We provide a docker image implementaion with the facilities of Docker Compose. 
 
-Run the following commands inside the project's directory:
+Run the following command inside the project's directory:
 
 * `$: docker-compose build upwork_scraper`
-* `$: docker-compose up upwork_scraper`
 
 To access the container:
 * `$: docker run -it upwork_scraper`
@@ -28,7 +27,9 @@ To access the container:
 # Main scraper
 The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module read a credential json file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)), for each provided credential it retrives and saves the user profile information in the **user_profiles** directory.
 
-To run the **main_scraper** only execute: `python3 src/main_scraper.py`
+To run the **main_scraper** only execute: 
+
+* `$: python3 src/main_scraper.py`
 
 The first version of this module uses the **SeleniumScraper**, but with our Scraper Interface, described bellow, it's possible to provide many scrapers as needed.
 
