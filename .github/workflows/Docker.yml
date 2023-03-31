@@ -34,4 +34,8 @@ jobs:
         run: sudo apt-get install docker docker-compose
 
       - name: Build Docker Image
-        run: sudo systemctl start docker && docker-compose up upwork_scraper
+        run: |
+          file /etc/xdg/systemd/user/docker.service
+          sudo rm /etc/xdg/systemd/user/docker.service
+          sudo systemctl --user enable docker
+          sudo systemctl start docker && docker-compose up upwork_scraper
