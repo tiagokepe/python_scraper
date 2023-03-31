@@ -14,11 +14,11 @@ All required libraries with the versions used in the development enviroment are 
 Therefore, it only requires to run: `sudo pip3 install -r requirements.txt`
 
 # Docker Container
-We provide a docker image implementaion with the facilities of Docker Compose. 
+We provide a docker image implementation with the Docker Compose facilities. 
 
 Run the following command inside the project's directory:
 
-* `$: docker-compose build upwork_scraper`
+* `$: docker-compose up upwork_scraper`
 
 To access the container:
 * `$: docker run -it upwork_scraper`
