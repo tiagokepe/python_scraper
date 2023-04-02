@@ -25,7 +25,7 @@ To access the container:
 
 
 # Main scraper
-The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module read a credential json file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)), for each provided credential it retrives and saves the user profile information in the **user_profiles** directory.
+The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module reads a credential json file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)), for each provided credential it retrives and saves the user profile information in the **user_profiles** directory.
 
 To run the **main_scraper** only execute:
 
@@ -46,7 +46,7 @@ The new scrapers must be usefull in case of SeleniumScraper's failure, we can us
 
 
 # Github actions for CI/CD
-For now, there are two defined actions for CI/CD workflows:
+For now, there are three implemented actions for CI/CD workflows:
 * `CodeQuality.yml`: runs many format checks
 * `Docker.yml`: builds the docker image
 * `Main.yml`: installs the requirements and runs the unit test scripts
@@ -64,7 +64,7 @@ We provide some extra features especially for troubleshooting, handling possible
 This class provides log functionalies for the scrapers.
 
 ## ConfigureScraper
-This class define and handle the configuration knobs for the framework such as:
+This class defines and handles the configuration knobs for the framework such as:
 * `retry_attempts`: number of retry attempts
 * `log_file`: path to the log file
 * `screenshot_dir`: path for the screenshot directory used by the SeleniumScraper
