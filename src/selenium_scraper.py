@@ -34,13 +34,22 @@ class SeleniumScraper(AbstractScraper):
     def __init__(self, config: ConfigureScraper):
         super().__init__(config)
         options = Options()
-        user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
-                    (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-        options.add_argument(f"user-agent={user_agent}")
+        # user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
+        #             (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+        # options.add_argument(f"user-agent={user_agent}")
         options.add_argument("--headless=new")
         options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--disable-web-security")
+        options.add_argument("--ignore-certificate-errors")
+        options.add_argument("--disable-features=IsolateOrigins,site-per-process")
         service = Service(ChromeDriverManager().install())
-        self._scraper = UC.Chrome(service=service, options=options)
+        self._scraper = UC.Chrome(service=service, options=options, version_main=111)
         self._logger.log_info("Init", "Selenium Scraper")
         self.state = StateEnum.INITIALIZED
 
