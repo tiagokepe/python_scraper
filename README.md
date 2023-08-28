@@ -1,4 +1,4 @@
-# Upwork Scraper Framework
+# Python Scraper Framework
 This project provides an initial proposal for a scraper framework to retrieve profile information from https://upwork.com.
 
 # Interface
@@ -18,14 +18,14 @@ We provide a docker image implementation with the Docker Compose facilities.
 
 Run the following command inside the project's directory:
 
-* `$: docker-compose up upwork_scraper`
+* `$: docker-compose up python_scraper`
 
 To access the container:
-* `$: docker run -it upwork_scraper`
+* `$: docker run -it python_scraper`
 
 
 # Main scraper
-The [main_scraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/main_scraper.py) module reads a credential JSON file (ex: [credentials.json](https://github.com/tiagokepe/upwork_scraper/blob/main/credentials.json)). For each provided credential, it retrieves and saves the user profile information in the **user_profiles** directory.
+The [main_scraper](https://github.com/tiagokepe/python_scraper/blob/main/src/main_scraper.py) module reads a credential JSON file (ex: [credentials.json](https://github.com/tiagokepe/python_scraper/blob/main/credentials.json)). For each provided credential, it retrieves and saves the user profile information in the **user_profiles** directory.
 
 To run the **main_scraper**, only execute:
 
@@ -36,11 +36,11 @@ The first version of this module uses the **SeleniumScraper**, but with our Scra
 P.S.: A valuable feature would be to implement a fallback functionality. I already have an idea for that, which needs more time.
 
 ## Scraper Interface
-New scrapers must implement the [AbstractScraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/abstract_scraper.py). This interface design aims to enable the easy implementation of new scrapers from different libraries, especially for fallback purposes.
+New scrapers must implement the [AbstractScraper](https://github.com/tiagokepe/python_scraper/blob/main/src/abstract_scraper.py). This interface design aims to enable the easy implementation of new scrapers from different libraries, especially for fallback purposes.
 
-A full implementation of this interface is presented in [SeleniumScraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/selenium_scraper.py), using the **Selenium** library to mimic the browser and then to overcome the Cloudflare firewall.
+A full implementation of this interface is presented in [SeleniumScraper](https://github.com/tiagokepe/python_scraper/blob/main/src/selenium_scraper.py), using the **Selenium** library to mimic the browser and then to overcome the Cloudflare firewall.
 
-For fallback and/or performance improvements, I've started to implement a new scraper using the **cloudscraper** library, and it's partial with only the **log_in** and with code snippet in [CloudBasedScraper](https://github.com/tiagokepe/upwork_scraper/blob/main/src/cloud_based_scraper.py).
+For fallback and/or performance improvements, I've started to implement a new scraper using the **cloudscraper** library, and it's partial with only the **log_in** and with code snippet in [CloudBasedScraper](https://github.com/tiagokepe/python_scraper/blob/main/src/cloud_based_scraper.py).
 
 The new scrapers must be helpful in case of SeleniumScraper failure. We can use other scrapers as a fallback.
 
@@ -50,7 +50,7 @@ For now, there are three implemented actions for CI/CD workflows:
 * `Docker.yml`: builds the docker image
 * `Main.yml`: installs the requirements and runs the unit test scripts
 
-The **Main** workflow generates the  [log-report artifact](https://github.com/tiagokepe/upwork_scraper/actions/runs/4574732726#:~:text=exit%20code%201.-,Artifacts,-Produced%20during%20runtime) for troubleshooting.
+The **Main** workflow generates the  [log-report artifact](https://github.com/tiagokepe/python_scraper/actions/runs/4574732726#:~:text=exit%20code%201.-,Artifacts,-Produced%20during%20runtime) for troubleshooting.
 
 # Features
 We provide some extra features, especially for troubleshooting, handling possible errors, and retrying if the scanning fails.
